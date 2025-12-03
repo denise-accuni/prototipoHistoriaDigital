@@ -1,0 +1,169 @@
+Fica assim:
+
+.
+├── main.py
+└── templates
+    ├── index.html
+    └── resultados.html
+
+3.4. Código básico em main.py
+
+Começa com versão mais simples, só com filtro por região. Depois você pode estender com empresa/ano/área.
+
+Cole algo assim em main.py:
+
+from flask import Flask, render_template, request
+import requests
+
+app = Flask(__name__)
+
+SPARQL_ENDPOINT = "https://query.wikidata.org/sparql"
+
+def buscar_mulheres_computacao(regiao):
+    # Se não tiver região, não busca nada
+    if not regiao:
+        return []
+
+    query = f"""
+    SELECT ?pessoa ?pessoaLabel ?countryLabel ?article ?birthYear WHERE {{
+      ?pessoa wdt:P31 wd:Q5;              # ser humano
+              wdt:P21 wd:Q6581072;        # feminino
+              wdt:P106 ?ocupacao;         # profissão
+              wdt:P27 ?country.           # país de cidadania
+
+      VALUES ?ocupacao {{
+        wd:Q82594        # cientista da computação
+        wd:Q5482740      # programador(a)
+        wd:Q81096        # engenheiro(a) de software
+      }}
+
+      ?country rdfs:label "{regiao}"@pt.
+
+      OPTIONAL {{ ?pessoa wdt:P569 ?dob. BIND(YEAR(?dob) AS ?birthYear) }}
+      OPTIONAL {{
+        ?article schema:about ?pessoa ;
+                 schema:inLanguage "pt" ;
+                 schema:isPartOf <https://pt.wikipedia.org/>.
+      }}
+
+      SERVICE wikibase:label {{ bd:serviceParam wikibase:language "pt,en". }}
+    }}
+    LIMIT 100
+    """
+
+    headers = {
+        "Accept": "application/sparql-results+json",
+        # User-Agent é importante por boas práticas
+        "User-Agent": "MapaMulheresComputacao/1.0 (contato-exemplo@seuemail)"
+    }
+
+    try:
+        resp = requests.get(
+            SPARQL_ENDPOINT,
+            params={"query": query, "format": "json"},
+            headers=headers,
+            timeout=30
+        )
+        resp.raise_for_status()
+    except Exception as e:
+        print("Erro ao consultar Wikidata:", e)
+        return []
+
+    data = resp.json()
+    resultados = []
+    for b in data["results"]["bindings"]:
+        resultados.append({
+            "nome": b["pessoaLabel"]["value"],
+            "pais": b.get("countryLabel", {}).get("value"),
+            "ano_nasc": b.get("birthYear", {}).get("value"),
+            "wiki": b.get("article", {}).get("value"),
+        })
+    return resultados
+
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+@app.route("/buscar")
+def buscar():
+    regiao = request.args.get("regiao", "").strip()
+    resultados = buscar_mulheres_computacao(regiao)
+    return render_template(
+        "resultados.html",
+        regiao=regiao,
+        resultados=resultados
+    )
+
+
+# Replit normalmente roda o main.py com este bloco
+if __name__ == "__main__":
+    # host="0.0.0.0" é importante pro Replit expor o servidor
+    app.run(host="0.0.0.0", port=8000, debug=True)
+
+
+Depois você pode evoluir esta função para aceitar empresa, ano, área, como te mostrei antes.
+
+3.5. templates/index.html – página inicial com formulário
+
+Coloque algo simples, depois você estiliza com Bulma/Bootstrap se quiser:
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Mapa Digital de Mulheres na Computação</title>
+</head>
+<body>
+  <h1>Mapa Digital de Mulheres na Computação</h1>
+  <p>Digite um país em português (ex.: Brasil, Portugal, Estados Unidos) para buscar mulheres da computação registradas na Wikidata.</p>
+
+  <form action="/buscar" method="get">
+    <label>Região / País:</label>
+    <input type="text" name="regiao" placeholder="Brasil" required>
+    <button type="submit">Buscar</button>
+  </form>
+</body>
+</html>
+
+3.6. templates/resultados.html – exibindo os resultados
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultados - Mapa Digital</title>
+</head>
+<body>
+  <h1>Resultados para: {{ regiao }}</h1>
+  <p>Foram encontradas {{ resultados|length }} mulheres.</p>
+
+  <a href="/">Nova busca</a>
+
+  <ul>
+    {% for r in resultados %}
+      <li>
+        <strong>{{ r.nome }}</strong><br>
+        País: {{ r.pais or "—" }}<br>
+        Ano de nascimento: {{ r.ano_nasc or "—" }}<br>
+        {% if r.wiki %}
+          <a href="{{ r.wiki }}" target="_blank">Ver na Wikipédia</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
+
+3.7. Rodando no Replit
+
+Clique no botão “Run” no topo.
+
+Ele vai instalar as dependências e iniciar o Flask.
+
+Vai aparecer um URL (janela à direita ou acima), algo como:
+https://mapa-mulheres-computacao.seu-usuario.repl.co
+
+Abra esse link – já é “app para usuário final”.
+
+Teste no celular também, colando essa URL no navegador.
