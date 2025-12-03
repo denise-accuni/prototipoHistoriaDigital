@@ -1,23 +1,55 @@
 🌐 MulheresTechMap
+Mapa Digital da Representatividade Feminina na Computação
 
-Plataforma digital para mapeamento, visibilidade e valorização das mulheres na Computação.
+Plataforma interativa para coleta, visualização e divulgação de dados sobre a presença de mulheres na área de Tecnologia.
 
-Este projeto reúne um formulário de coleta de dados, um front-end responsivo e um dashboard integrado com gráficos interativos que apresentam os resultados da pesquisa em tempo real.
-O objetivo é contribuir para estudos de diversidade, inclusão digital e representatividade feminina na área de Tecnologia da Informação.
+<p align="center"> <img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-purple?style=flat-square" /> <img src="https://img.shields.io/badge/Linguagem-React%20%2B%20TS-blue?style=flat-square" /> <img src="https://img.shields.io/badge/Extensão%20%2F%20Pesquisa-Humanidades%20Digitais-9cf?style=flat-square" /> <img src="https://img.shields.io/badge/Licença-MIT-green?style=flat-square" /> </p>
+✨ Visão Geral
 
-📌 Objetivos do Projeto
+O MulheresTechMap é uma iniciativa acadêmica e social que visa:
 
-Mapear a presença de mulheres na Computação em diferentes níveis de formação e atuação.
+Dar visibilidade às mulheres que atuam, estudam ou desejam ingressar na área de Computação.
 
-Coletar dados anonimizados sobre desafios, trajetória e áreas de interesse.
+Coletar dados anonimizados através de um formulário público.
 
-Gerar visualizações acessíveis para estudos, projetos de extensão e pesquisas científicas.
+Exibir os resultados de forma visual e acessível através de um painel interativo.
 
-Fomentar discussões sobre inclusão, diversidade e políticas educacionais para a área de TI.
+Contribuir com pesquisas, projetos de extensão e ações de inclusão digital.
 
-Oferecer um ambiente intuitivo para participação pública.
+O projeto integra princípios de Humanidades Digitais, Cultura Digital, Computação na Educação e ODS 5 – Igualdade de Gênero.
 
-🛠️ Tecnologias Utilizadas
+🧭 Demonstração
+Dashboard com Gráficos Interativos
+
+Os gráficos são carregados diretamente do Google Sheets via embed:
+
+📊 Gráfico 1
+https://docs.google.com/spreadsheets/d/e/2PACX-1vTcVpaxujMGUduFMnorREMBe18yYObfrK6SFuNT7EMq0Amz8Erpof9PdGNIuCj9lOldSUcZM5ufsGw4/pubchart?oid=1558650001&format=interactive
+
+📈 Gráfico 2
+https://docs.google.com/spreadsheets/d/e/2PACX-1vTcVpaxujMGUduFMnorREMBe18yYObfrK6SFuNT7EMq0Amz8Erpof9PdGNIuCj9lOldSUcZM5ufsGw4/pubchart?oid=1855741587&format=interactive
+
+📁 Estrutura do Projeto
+src/
+  components/
+  hooks/
+  lib/
+  pages/
+    home.tsx
+    about.tsx
+    form.tsx
+    dashboard.tsx
+    results.tsx
+  App.tsx
+  main.tsx
+public/
+  favicon.png
+script/
+server/
+DOCUMENTACAO_TECNICA.md
+RELATORIO_DESENVOLVIMENTO.md
+
+🚀 Tecnologias Utilizadas
 
 Front-end
 
@@ -27,46 +59,25 @@ Vite
 
 TailwindCSS
 
-Framer Motion (animações)
+Framer Motion
 
 Lucide Icons
 
-Wouter (roteamento leve)
+Wouter (router leve)
 
-Dashboard
+Visualização de Dados
 
-Google Sheets + Google Charts (via pubchart com gráficos interativos)
+Google Sheets
 
-Integração por <iframe> responsivo
+Google Charts (via pubchart interativo)
 
-Hospedagem / Ambiente de Desenvolvimento
+Ambiente
 
-Replit (desenvolvimento)
+Replit
 
-GitHub (controle de versão)
+GitHub
 
-📁 Estrutura de Pastas
-src/
-  components/     → componentes reutilizáveis
-  hooks/          
-  lib/            
-  pages/          → home, formulário, dashboard, resultados, etc.
-  App.tsx
-  main.tsx
-
-public/
-  favicon.png
-
-script/
-  build.ts
-
-server/
-  ... (se houver lógica futura de back-end)
-
-DOCUMENTACAO_TECNICA.md
-RELATORIO_DESENVOLVIMENTO.md
-
-🚀 Como Executar Localmente
+🛠️ Como Executar Localmente
 1. Clone o repositório
 git clone https://github.com/SEU_USUARIO/MulheresTechMap.git
 cd MulheresTechMap
@@ -77,68 +88,52 @@ npm install
 3. Execute o ambiente de desenvolvimento
 npm run dev
 
-4. Abra no navegador
+4. Acesse no navegador
 http://localhost:5173/
 
-📊 Dashboard com Gráficos Interativos (Não atualizado ainda )
+📬 Funcionalidades
 
-Os gráficos são carregados diretamente do Google Sheets através de URLs públicas do tipo:
+✔️ Formulário público para mulheres compartilharem suas experiências
 
-Gráfico 1:
-https://docs.google.com/spreadsheets/d/e/2PACX-1vTcVpaxujMGUduFMnorREMBe18yYObfrK6SFuNT7EMq0Amz8Erpof9PdGNIuCj9lOldSUcZM5ufsGw4/pubchart?oid=1558650001&format=interactive
+✔️ Dashboard com gráficos dinâmicos
 
-Gráfico 2:
-https://docs.google.com/spreadsheets/d/e/2PACX-1vTcVpaxujMGUduFMnorREMBe18yYObfrK6SFuNT7EMq0Amz8Erpof9PdGNIuCj9lOldSUcZM5ufsGw4/pubchart?oid=1855741587&format=interactive
+✔️ Interface moderna, responsiva e acessível
 
-Essas visualizações são exibidas no componente dashboard.tsx.
+✔️ Página institucional explicando o projeto
 
-📝 Funcionalidades
+✔️ Navegação leve com Wouter
 
-📬 Formulário de participação
-Coleta informações voluntárias sobre formação, desafios, atuação e interesses.
+✔️ Animações suaves com Framer Motion
 
-📈 Dashboard de análise
-Gráficos atualizados automaticamente a partir das respostas do formulário.
+🔐 Privacidade e Ética
 
-💬 Página Sobre
-Explica o propósito do projeto, motivação e relevância social.
+Não coleta dados pessoais sensíveis
 
-🎨 Interface responsiva e suave
-Criada com Tailwind, animações limpas e visual acolhedor.
+Respostas são 100% anônimas
 
-🔎 Resultados e estatísticas
-Dados organizados para análise acadêmica e extensão universitária.
+Utilização estritamente acadêmica
 
-🔒 Privacidade e Ética
+Princípios alinhados às Humanidades Digitais e à ética em pesquisa
 
-Todas as respostas são anônimas.
+📌 Oportunidades de Expansão
 
-Não são coletados dados pessoais sensíveis.
+API dedicada + banco de dados
 
-O objetivo é estritamente acadêmico e de promoção da diversidade em TI.
+Dashboard profissional com ECharts ou Recharts
 
-As práticas seguem orientações de ética em pesquisa da área de Humanidades Digitais.
+Exportação do dataset
 
-🧩 Possíveis Expansões Futuras
+Seção de histórias inspiradoras de mulheres na computação
 
-API própria com banco de dados (Supabase / Firebase / Mongo).
-
-Exportação automática para CSV/JSON.
-
-Painel administrativo para pesquisadores.
-
-Aplicação do projeto em disciplinas e projetos extensionistas.
-
-Dashboard com bibliotecas como Recharts ou ECharts.
+Internacionalização (i18n)
 
 👩‍💻 Autoria
 
-Projeto criado e mantido por:
 Denise Moraes do Nascimento Vieira
-Professora, Pesquisadora e Coordenadora Acadêmica
-Áreas: Humanidades Digitais, Computação na Educação, Dados Abertos, Inclusão Tecnológica
+Professora, Pesquisadora, Coordenadora Acadêmica
+Especialista em Humanidades Digitais, Computação na Educação, Dados Abertos e ODS.
 
 📄 Licença
 
-Este projeto está sob a licença MIT.
-Sinta-se à vontade para utilizar, estudar, adaptar e colaborar.
+Distribuído sob a licença MIT.
+Sinta-se à vontade para usar, modificar e colaborar.
