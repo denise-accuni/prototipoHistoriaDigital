@@ -20,6 +20,7 @@ O projeto integra princípios de Humanidades Digitais, Cultura Digital, Computa�
 
 🧭 Demonstração
 Dashboard com Gráficos Interativos
+- Formulário para gerar o gráfico: https://forms.gle/xEaBenrSCatkCHB48 
 
 Os gráficos são carregados diretamente do Google Sheets via embed:
 
